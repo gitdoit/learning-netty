@@ -1,4 +1,4 @@
-package org.seefly.mynetty.netty.inaction;
+package org.seefly.mynetty.netty.inaction.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

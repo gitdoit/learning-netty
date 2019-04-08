@@ -1,4 +1,4 @@
-package org.seefly.mynetty.netty.inaction;
+package org.seefly.mynetty.netty.inaction.echo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
