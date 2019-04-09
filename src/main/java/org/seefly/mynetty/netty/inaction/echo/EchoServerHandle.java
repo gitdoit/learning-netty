@@ -44,10 +44,10 @@ public class EchoServerHandle extends ChannelInboundHandlerAdapter {
      * 当然，也有可能的情况是可以从错误中恢复的，所以可以用一个更复杂的措施来尝试识别和处理 这样的情况
      *
      * 如果异常没有被捕获，会发生什么？
-     * 每个 Channel 都有一个关联的 ChannelPipeline，它代表了 ChannelHandler 实例的链。
+     * 每个 Channel 都有一个关联的 ChannelPipeline，它代表了 ChannelHandlerDemo 实例的链。
      * 适配器处理的实现只是将一个处理方法调用转发到链中的下一个处理器。
      * 因此，如果一个 Netty 应用程序不覆盖exceptionCaught ，那么这些错误将最终到达 ChannelPipeline，并且结束警告将被记录。
-     * 出于这个原因，你应该提供至少一个 实现 exceptionCaught 的 ChannelHandler。
+     * 出于这个原因，你应该提供至少一个 实现 exceptionCaught 的 ChannelHandlerDemo。
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
