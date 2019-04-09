@@ -1,4 +1,4 @@
-package org.seefly.mynetty.netty.inaction.transport;
+package org.seefly.mynetty.netty.transport;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
