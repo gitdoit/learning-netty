@@ -27,6 +27,7 @@ public class ChannelHandlerContextDemo {
         ctx.write(null);
 
         //可以缓存一个ChannelHandlerContext以便可以不基于事件触发，而主动向外写出数据
+        // test
     }
 
 
