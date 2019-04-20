@@ -7,8 +7,6 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,6 +33,7 @@ public class UsefulHandlerDemo {
             if(evt instanceof IdleStateEvent){
                 ctx.writeAndFlush(BEAT.duplicate()).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
             }
+
         }
 
     }

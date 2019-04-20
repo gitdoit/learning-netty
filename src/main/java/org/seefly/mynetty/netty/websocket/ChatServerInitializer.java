@@ -29,7 +29,7 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast(new ChunkedWriteHandler());
         // 将一个HttpMessage 和跟随它的多个HttpContent聚合为单个FullHttpRequest或FullHttpResponse
         // 安装了这个Handler后，它的下一个Handler将会收到一个完整的Http请求或响应
-        pipeline.addLast(new HttpObjectAggregator(64 * 1024));
+        pipeline.addLast(new HttpObjectAggregator(1024 * 1024));
         // 处理FullHttpRequest
         pipeline.addLast(new HttpRequestHandler("/ws"));
         // 处理websocket协议升级,当协议升级完成之后，他会将HttpRequestDecoder替换成WebsocketFrameDecoder

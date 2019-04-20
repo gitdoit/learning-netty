@@ -5,6 +5,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.DefaultFileRegion;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.ssl.SslHandler;
+import io.netty.handler.stream.ChunkedNioFile;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -46,7 +48,9 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 send100Continue(ctx);
             }
             RandomAccessFile randomAccessFile = new RandomAccessFile(INDEX, "r");
-            FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
+            // 这里注意用的是HttpResponse 不是 FullHttpResponse
+            // 如果使用FullHttpResponse的话，你一旦向外写出这个响应，那么本次响应就算完结了，不能再写东西了
+            HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
             // 设置响应头
             response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/html;charset=UTF-8");
             boolean keepAlive = HttpUtil.isKeepAlive(request);
@@ -55,7 +59,11 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                                 .set(HttpHeaderNames.CONTENT_LENGTH,randomAccessFile.length());
             }
             ctx.write(response);
-            ctx.write(new DefaultFileRegion(randomAccessFile.getChannel(),0,randomAccessFile.length()));
+            if(ctx.pipeline().get(SslHandler.class) == null){
+                ctx.write(new DefaultFileRegion(randomAccessFile.getChannel(),0,randomAccessFile.length()));
+            }else {
+                ctx.write(new ChunkedNioFile(randomAccessFile.getChannel()));
+            }
             ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener((ChannelFuture future) -> {
                 if(!keepAlive){
                     future.channel().close();

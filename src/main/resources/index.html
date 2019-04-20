@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>sip demo</title>
+ 
+</head>
+<body>
+<button onclick="dial()">发消息</button>
+
+<script type="text/javascript">
+    var ws = new WebSocket("ws://127.0.0.1:8866/ws");
+	ws.onopen = function() {
+	console.error('握手成功');
+	alert('OK');
+	};
+	ws.onmessage = function(msg){
+		console.error(msg);
+	};
+
+    function dial() {
+        ws.send('sdfsdfsdf');
+    }
+</script>
+</body></html>

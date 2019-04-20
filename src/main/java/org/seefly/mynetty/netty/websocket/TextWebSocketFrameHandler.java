@@ -21,12 +21,18 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+        // 该成员发来的消息，直接发送到群组中
         group.writeAndFlush(msg.retain());
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if(evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE){
+            // 如果握手完成，则移除HttpRequestHandler
+            ctx.pipeline().remove(HttpRequestHandler.class);
+            // 将该channel添加到群组
+            group.add(ctx.channel());
+            // 向组内其他成员发送 新成员加入消息
             group.writeAndFlush(new TextWebSocketFrame("新管道加入:"+ctx.channel()));
         }else {
             super.userEventTriggered(ctx,evt);
