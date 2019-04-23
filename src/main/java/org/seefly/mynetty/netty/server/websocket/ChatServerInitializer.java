@@ -1,4 +1,4 @@
-package org.seefly.mynetty.netty.websocket;
+package org.seefly.mynetty.netty.server.websocket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

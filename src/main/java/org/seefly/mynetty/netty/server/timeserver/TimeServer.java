@@ -1,4 +1,4 @@
-package org.seefly.mynetty.netty.timeserver;
+package org.seefly.mynetty.netty.server.timeserver;
 
 import org.springframework.util.StringUtils;
 

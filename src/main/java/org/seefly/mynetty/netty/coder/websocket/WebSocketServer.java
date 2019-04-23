@@ -13,7 +13,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 /**
  *
  * js代码
- * var ws = new WebSocket("ws://127.0.0.1:9999/websocket");
+ * var ws = new WebSocket("ws://127.0.0.1:9999/server");
  * 		ws.onopen = function() {
  * 		console.error('握手成功');
  * 		alert('OK');};
@@ -41,7 +41,7 @@ public class WebSocketServer {
                                 // 消息聚合，处理分片消息
                                 new HttpObjectAggregator(65536),
                                 // 处理握手协议升级
-                                new WebSocketServerProtocolHandler("/websocket"),
+                                new WebSocketServerProtocolHandler("/server"),
                                 new TextFrameHandler(),
                                 new ContinuationFrameHandler()
                                 );

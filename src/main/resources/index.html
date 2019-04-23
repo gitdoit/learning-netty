@@ -2,11 +2,11 @@
 <html lang="en"><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>sip demo</title>
+    <title>websocket demo</title>
  
 </head>
 <body>
-<button onclick="dial()">发消息</button>
+<button onclick="sendMsg()">发消息</button>
 
 <script type="text/javascript">
     var ws = new WebSocket("ws://127.0.0.1:8866/ws");
@@ -18,8 +18,8 @@
 		console.error(msg);
 	};
 
-    function dial() {
-        ws.send('sdfsdfsdf');
+    function sendMsg() {
+        ws.send('Hello Netty!');
     }
 </script>
 </body></html>
